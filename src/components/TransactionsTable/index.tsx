@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Container } from './styles';
 
 export function TransactionsTable() {

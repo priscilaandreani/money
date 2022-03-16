@@ -1,6 +1,9 @@
 import { Dashboard } from './components/Dashboard';
 import { Header } from './components/Header';
+import { fakeService } from './service/mirageService';
 import { GlobalStyle } from './styles/global';
+
+fakeService();
 
 export function App() {
   return (
