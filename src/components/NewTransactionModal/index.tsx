@@ -26,8 +26,8 @@ export function NewTransactionModal({
     const data = {
       title,
       value,
-      category,
       type,
+      category,
     };
 
     api.post('/transactions', data);
