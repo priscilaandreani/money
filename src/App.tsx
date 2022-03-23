@@ -5,6 +5,7 @@ import { NewTransactionModal } from './components/NewTransactionModal';
 import Modal from 'react-modal';
 import { fakeService } from './server/mirageService';
 import { GlobalStyle } from './styles/global';
+import { TransactionsProvider } from './contexts/TransactionsContext';
 
 fakeService();
 
@@ -24,13 +25,15 @@ export function App() {
 
   return (
     <div className='App'>
-      <GlobalStyle />
-      <Header onOpenNewTransactionModal={handleOpenNewTransaction} />
-      <Dashboard />
-      <NewTransactionModal
-        isOpen={isNewTransactionModalOpen}
-        onRequestClose={handleCloseNewTransaction}
-      />
+      <TransactionsProvider>
+        <GlobalStyle />
+        <Header onOpenNewTransactionModal={handleOpenNewTransaction} />
+        <Dashboard />
+        <NewTransactionModal
+          isOpen={isNewTransactionModalOpen}
+          onRequestClose={handleCloseNewTransaction}
+        />
+      </TransactionsProvider>
     </div>
   );
 }

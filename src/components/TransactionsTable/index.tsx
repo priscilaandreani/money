@@ -1,23 +1,9 @@
-import { useFetch } from '../../hooks/useFetch';
+import { useContext } from 'react';
+import { TransactionsContext } from '../../contexts/TransactionsContext';
 import { Container } from './styles';
 
-interface DataResponse {
-  transactions: Transaction[];
-}
-interface Transaction {
-  id: number;
-  title: string;
-  type: 'deposit' | 'withdraw';
-  amount: number;
-  category: string;
-  createdAt: string;
-}
-
 export function TransactionsTable() {
-  const { data, isFetching } = useFetch<DataResponse>('/transactions');
-  console.log(data?.transactions);
-  let transactions = data?.transactions;
-
+  const { transactions, isFetching } = useContext(TransactionsContext);
   return (
     <Container>
       <table>
