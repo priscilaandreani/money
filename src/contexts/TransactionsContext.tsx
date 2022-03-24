@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode } from 'react';
 import { useFetch } from '../hooks/useFetch';
 import { api } from '../services/api';
 
