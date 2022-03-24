@@ -1,5 +1,6 @@
-import { createContext, ReactNode } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 import { useFetch } from '../hooks/useFetch';
+import { api } from '../services/api';
 
 interface DataResponse {
   transactions: Transaction[] | undefined;
@@ -7,31 +8,44 @@ interface DataResponse {
 interface Transaction {
   id: number;
   title: string;
-  type: 'deposit' | 'withdraw';
+  type: string;
   amount: number;
   category: string;
   createdAt: string;
 }
-
 interface TransactionProvider {
   children: ReactNode;
 }
-
 interface StateContext {
   transactions: Transaction[] | undefined;
   isFetching: boolean;
+  createTransaction: (transaction: TransactionInput) => Promise<void>;
 }
-export const TransactionsContext = createContext<StateContext>({
-  transactions: [],
-  isFetching: true,
-});
+
+type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>;
+
+export const TransactionsContext = createContext<StateContext>(
+  {} as StateContext
+);
 
 export function TransactionsProvider({ children }: TransactionProvider) {
-  const { data, isFetching } = useFetch<DataResponse>('/transactions');
+  const { data, isFetching, setData } = useFetch<DataResponse>('/transactions');
+
   let transactions = data?.transactions;
 
+  async function createTransaction(transactionInput: TransactionInput) {
+    const response = await api.post('/transactions', {
+      ...transactionInput,
+      createdAt: new Date(),
+    });
+    const { transaction } = response.data;
+
+    setData([...transactions, transaction]);
+  }
+
   return (
-    <TransactionsContext.Provider value={{ transactions, isFetching }}>
+    <TransactionsContext.Provider
+      value={{ transactions, isFetching, createTransaction }}>
       {children}
     </TransactionsContext.Provider>
   );
