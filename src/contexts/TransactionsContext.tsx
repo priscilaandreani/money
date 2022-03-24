@@ -38,9 +38,18 @@ export function TransactionsProvider({ children }: TransactionProvider) {
       ...transactionInput,
       createdAt: new Date(),
     });
+
     const { transaction } = response.data;
 
-    setData([...transactions, transaction]);
+    if (transactions !== undefined) {
+      setData({
+        transactions: [...transactions, transaction],
+      });
+    } else {
+      setData({
+        transactions: [transaction],
+      });
+    }
   }
 
   return (
