@@ -33,10 +33,11 @@ export function Summary() {
           <img src={incomeImg} alt='entradas' />
         </header>
         <strong className='deposit'>
-          {new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          }).format(summary!.deposits)}
+          {summary &&
+            new Intl.NumberFormat('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            }).format(summary!.deposits)}
         </strong>
       </div>
 
@@ -46,10 +47,11 @@ export function Summary() {
           <img src={outcomeImg} alt='saídas' />
         </header>
         <strong className='withdraw'>
-          {new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          }).format(summary!.withdraws)}
+          {summary &&
+            new Intl.NumberFormat('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            }).format(summary!.withdraws)}
         </strong>
       </div>
 
@@ -59,10 +61,11 @@ export function Summary() {
           <img src={totalImg} alt='total' />
         </header>
         <strong>
-          {new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          }).format(summary!.total)}
+          {summary &&
+            new Intl.NumberFormat('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            }).format(summary!.total)}
         </strong>
       </div>
     </Container>
